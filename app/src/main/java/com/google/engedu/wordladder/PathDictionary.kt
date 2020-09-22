@@ -30,13 +30,36 @@ class PathDictionary(inputStream: InputStream?) {
         return if (words[word] == null) listOf() else words[word]!!.toList()
     }
 
-    fun findPath(start: String, end: String): Array<String>? {
+    fun findPath(start: String, end: String): List<String>? {
+        val dq = ArrayDeque<List<String>>()
+        val visited = mutableListOf<String>()
+        dq.offer(listOf(start))
+        visited.add(start)
+        var searchAmount = 1
+        var depth = 0
+        while (dq.isNotEmpty() && depth <= MAX_SEARCH_DEPTH) {
+            var newSearchAmount = 0
+            for (i in 0..searchAmount) {
+                val cur = dq.poll()
+                for (next in words[cur.last()]!!) {
+                    if (!visited.contains(next)) {
+                        visited.add(next)
+                        dq.offer(cur + listOf(next))
+                        newSearchAmount++
+                        if (next == end) return cur + listOf(next)
+                    }
+                }
+            }
+            searchAmount = newSearchAmount
+            depth++
+        }
         return null
     }
 
     companion object {
         private const val MAX_WORD_LENGTH = 4
         private val words = HashMap<String, MutableList<String>>()
+        private const val MAX_SEARCH_DEPTH = 5
     }
 
     init {
@@ -67,6 +90,7 @@ class PathDictionary(inputStream: InputStream?) {
                     arr[i] = original
                 }
             }
+//            Log.d("sb", "init: ${words.toString()}")
         }
     }
 }

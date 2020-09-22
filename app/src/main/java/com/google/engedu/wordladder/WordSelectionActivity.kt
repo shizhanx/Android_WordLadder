@@ -43,13 +43,14 @@ class WordSelectionActivity : AppCompatActivity() {
         }
     }
 
-    fun onStart(view: View?): Boolean {
+    fun onStart(view: View?) {
         val startWordView = findViewById<View>(R.id.startWord) as TextView
         val endWordView = findViewById<View>(R.id.endWord) as TextView
         val words = dictionary!!.findPath(
                 startWordView.text.toString().toLowerCase(),
                 endWordView.text.toString().toLowerCase())
         if (words != null) {
+//            Log.d("sb", "onStart: ${words.toString()}")
             // TODO: Launch new activity here
         } else {
             Log.i("Word ladder", "Word combination is not possible")
@@ -57,7 +58,6 @@ class WordSelectionActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT)
             toast.show()
         }
-        return true
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
