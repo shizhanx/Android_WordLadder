@@ -30,7 +30,7 @@ class PathDictionary(inputStream: InputStream?) {
         return if (words[word] == null) listOf() else words[word]!!.toList()
     }
 
-    fun findPath(start: String, end: String): List<String>? {
+    fun findPath(start: String, end: String): Array<String>? {
         val dq = ArrayDeque<List<String>>()
         val visited = mutableListOf<String>()
         dq.offer(listOf(start))
@@ -46,7 +46,7 @@ class PathDictionary(inputStream: InputStream?) {
                         visited.add(next)
                         dq.offer(cur + listOf(next))
                         newSearchAmount++
-                        if (next == end) return cur + listOf(next)
+                        if (next == end) return (cur + listOf(next)).toTypedArray()
                     }
                 }
             }

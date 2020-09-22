@@ -14,6 +14,7 @@
  */
 package com.google.engedu.wordladder
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
@@ -51,7 +52,10 @@ class WordSelectionActivity : AppCompatActivity() {
                 endWordView.text.toString().toLowerCase())
         if (words != null) {
 //            Log.d("sb", "onStart: ${words.toString()}")
-            // TODO: Launch new activity here
+            val intent = Intent(this, SolverActivity::class.java).apply {
+                this.putExtra("Path", words)
+            }
+            startActivity(intent)
         } else {
             Log.i("Word ladder", "Word combination is not possible")
             val toast = Toast.makeText(this, "Couldn't find path between the two given words",
