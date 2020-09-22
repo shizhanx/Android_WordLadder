@@ -26,8 +26,8 @@ class PathDictionary(inputStream: InputStream?) {
         return words.containsKey(word.toLowerCase())
     }
 
-    private fun neighbours(word: String): List<String>? {
-        return words[word]
+    private fun neighbours(word: String): List<String> {
+        return if (words[word] == null) listOf() else words[word]!!.toList()
     }
 
     fun findPath(start: String, end: String): Array<String>? {
